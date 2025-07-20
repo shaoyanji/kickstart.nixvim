@@ -1,11 +1,17 @@
-{ pkgs, nixvim, ... }:
 {
-  programs.nixvim = {
-    extraPlugins = with pkgs.vimPlugins; [
-#      vim-nix
-      supermaven-nvim
-    ];
-    extraConfigLuaPre = /*lua*/ ''
+  pkgs,
+  nixvim,
+  ...
+}: {
+  extraPlugins = with pkgs.vimPlugins; [
+    #      vim-nix
+    supermaven-nvim
+  ];
+  extraConfigLuaPre =
+    /*
+    lua
+    */
+    ''
       require("supermaven-nvim").setup({
         keymaps = {
           accept_suggestion = "<C-CR>",
@@ -25,5 +31,4 @@
         end -- condition to check for stopping supermaven, `true` means to stop supermaven when the condition is true.
       })
     '';
-  };
-}  
+}
