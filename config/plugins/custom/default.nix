@@ -364,12 +364,33 @@
                         )
 =======
   ];
+  plugins.lsp = {
+    servers = {
+      gopls.enable = true;
+      nixd = {
+        enable = true;
+        settings = {
+          nixd = {
+            formatting = {
+              command = "${pkgs.alejandra}/bin/alejandra";
+            };
+            options = {
+              nixpkgs = {
+                expr = "import <nixpkgs> {}";
+              };
+            };
+          };
+        };
+      };
+    };
+  };
   extraConfigLuaPre =
     /*
     lua
     */
     ''
       require("obsidian").setup({
+      legacy_commands = false,
           -- A list of workspace names, paths, and configuration overrides.
           -- If you use the Obsidian app, the 'path' of a workspace should generally be
           -- your vault root (where the `.obsidian` folder is located).
