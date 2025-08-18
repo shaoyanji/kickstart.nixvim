@@ -52,7 +52,7 @@
                         return false
                       end -- condition to check for stopping supermaven, `true` means to stop supermaven when the condition is true.
                     })
-                    vim.opt.conceallevel = 2
+                vim.opt.conceallevel = 1,
                         require('obsidian').setup(
                 {
                                   legacy_commands = false,
