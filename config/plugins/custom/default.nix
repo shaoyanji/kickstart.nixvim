@@ -294,20 +294,20 @@
             -- You can also add more custom ones...
           },
         ui = {
-          enable = false,  -- set to false to disable all additional syntax features
+          enable = true,  -- set to false to disable all additional syntax features
           update_debounce = 200,  -- update delay after a text change (in milliseconds)
           max_file_length = 5000,  -- disable UI features for files with more than this many lines
           -- Define how various check-boxes are displayed
 
           -- Use bullet marks for non-checkbox lists.
-          bullets = { char = "•", hl_group = "Obsidian bullet" },
-          external_link_icon = { char = "", hl_group = "Obsidian extlinkicon" },
+          bullets = { char = "•", hl_group = "ObsidianBullet" },
+          external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
           -- Replace the above with this if you don't have a patched font:
           -- external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
-          reference_text = { hl_group = "Obsidian refText" },
-          highlight_text = { hl_group = "Obsidian highlightText" },
-          tags = { hl_group = "Obsidian tag" },
-          block_ids = { hl_group = "Obsidian blockID" },
+          reference_text = { hl_group = "ObsidianRefText" },
+          highlight_text = { hl_group = "ObsidianHighlightText" },
+          tags = { hl_group = "ObsidianTag" },
+          block_ids = { hl_group = "ObsidianBlockID" },
           hl_groups = {
             -- The options are passed directly to `vim.api.nvim_set_hl()`. See `:help nvim_set_hl`.
             ObsidianTodo = { bold = true, fg = "#f78c6c" },
