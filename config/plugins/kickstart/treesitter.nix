@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Highlight, edit, and navigate code
   # https://nix-community.github.io/nixvim/plugins/treesitter/index.html
   plugins.treesitter = {
@@ -20,7 +19,7 @@
       query # treesitter queries
       vim
       vimdoc
-      # lua
+      lua
       # luadoc
 
       # General Development
@@ -37,24 +36,25 @@
       markdown
       markdown_inline
       regex
-      # xml
+      xml
       yaml
 
       # Rust Development
       rust
       toml # Also for ZMK `keymap.toml`
+      nu
 
       # Web Development
       css
       html
-      # http
+      http
       javascript
       json
       # json5
       # php
       # php_only
       # phpdoc
-      # sql
+      sql
       # scss
       # twig
       # tsx
@@ -62,7 +62,7 @@
 
       # Web - other
       # astro
-      # nginx
+      nginx
       # svelte
     ];
 
