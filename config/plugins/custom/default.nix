@@ -7,7 +7,7 @@
     #      vim-nix
     plenary-nvim
     obsidian-nvim
-    # supermaven-nvim
+    supermaven-nvim
   ];
   plugins.lsp = {
     servers = {
