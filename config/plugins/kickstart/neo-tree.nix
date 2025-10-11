@@ -3,11 +3,12 @@
   # https://nix-community.github.io/nixvim/plugins/neo-tree/index.html?highlight=neo-tree#pluginsneo-treepackage
   plugins.neo-tree = {
     enable = true;
-
-    filesystem = {
-      window = {
-        mappings = {
-          "\\" = "close_window";
+    settings = {
+      filesystem = {
+        window = {
+          mappings = {
+            "\\" = "close_window";
+          };
         };
       };
     };
