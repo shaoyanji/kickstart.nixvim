@@ -16,7 +16,7 @@ in {
     # Uncomment if you are using the nixos module
     #inputs.nixvim.nixosModules.nixvim
     # Uncomment if you are using the nix-darwin module
-    #inputs.nixvim.nixDarwinModules.nixvim
+    # inputs.nixvim.nixDarwinModules.nixvim
 
     # Plugins
     ./config/plugins/kickstart/gitsigns.nix
@@ -80,8 +80,8 @@ in {
   #  See `:help 'clipboard'`
   clipboard = {
     providers = {
-      wl-copy.enable = true; # For Wayland
-      xsel.enable = true; # For X11
+      # wl-copy.enable = true; # For Wayland
+      # xsel.enable = true; # For X11
     };
 
     # Sync clipboard between OS and Neovim
