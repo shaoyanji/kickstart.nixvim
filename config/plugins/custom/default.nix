@@ -5,7 +5,6 @@
 }: {
   plugins.supermaven = {
     enable = true;
-    autoload = true;
     settings = {
       keymaps = {
         accept_suggestion = "<Tab>";
@@ -29,19 +28,19 @@
   };
   plugins.obsidian.enable = true;
   plugins.obsidian.settings = {
+    legacy_commands = false;
     completion = {
       min_chars = 2;
-      nvim_cmp = true;
     };
     new_notes_location = "current_dir";
     workspaces = [
       {
         name = "work";
-        path = "~/obsidian/work";
+        path = "~/vaults/work";
       }
       {
         name = "startup";
-        path = "~/obsidian/startup";
+        path = "~/vaults/personal";
       }
     ];
   };
