@@ -1,13 +1,12 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.nixvim = {
     extraPlugins = with pkgs.vimPlugins; [
-#      vim-nix
+      #      vim-nix
       otter-nvim
     ];
-    extraConfigLuaPre =''
+    extraConfigLuaPre = ''
       require("otter").activate({ "python", "javascript" },true,true, nil)
-        
+
     '';
   };
-}  
+}
