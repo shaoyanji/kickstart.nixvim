@@ -87,4 +87,8 @@
   };
   extraPlugins = with pkgs.vimPlugins; [
   ];
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "tabnine"
+    ];
 }
