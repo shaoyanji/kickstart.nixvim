@@ -6,7 +6,7 @@
   plugins = {
     typst-vim.enable = true;
     typst-preview.enable = true;
-    cmp-tabnine.enable = true;
+    # cmp-tabnine.enable = true;
     cloak.enable = true;
     cloak.settings = {
       cloak_character = "*";
@@ -87,8 +87,8 @@
   };
   extraPlugins = with pkgs.vimPlugins; [
   ];
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "tabnine"
-    ];
+  # nixpkgs.config.allowUnfreePredicate = pkg:
+  #   builtins.elem (lib.getName pkg) [
+  #     "tabnine"
+  #   ];
 }
