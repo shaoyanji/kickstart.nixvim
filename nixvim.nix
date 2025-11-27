@@ -3,10 +3,12 @@
   lib,
   config,
   ...
-}: let
-  map = import ./lib/mkKeymap.nix {};
+}:
+let
+  map = import ./lib/mkKeymap.nix { };
   enable_nerd_fonts = true;
-in {
+in
+{
   imports = [
     # NOTE: The first thing you will want to do is uncommented on of the three imports below
     # depending on which module you chose to use to install Nixvim.
@@ -99,7 +101,7 @@ in {
     number = true;
     # You can also add relative line numbers, to help with jumping.
     #  Experiment for yourself to see if you like it!
-    # relativenumber = true;
+    relativenumber = true;
 
     # Enable mouse mode, can be useful for resizing splits for example!
     mouse = "a";
@@ -182,26 +184,26 @@ in {
     }
     # TIP: Disable arrow keys in normal mode
     /*
-    {
-      mode = "n";
-      key = "<left>";
-      action = "<cmd>echo 'Use h to move!!'<CR>";
-    }
-    {
-      mode = "n";
-      key = "<right>";
-      action = "<cmd>echo 'Use l to move!!'<CR>";
-    }
-    {
-      mode = "n";
-      key = "<up>";
-      action = "<cmd>echo 'Use k to move!!'<CR>";
-    }
-    {
-      mode = "n";
-      key = "<down>";
-      action = "<cmd>echo 'Use j to move!!'<CR>";
-    }
+      {
+        mode = "n";
+        key = "<left>";
+        action = "<cmd>echo 'Use h to move!!'<CR>";
+      }
+      {
+        mode = "n";
+        key = "<right>";
+        action = "<cmd>echo 'Use l to move!!'<CR>";
+      }
+      {
+        mode = "n";
+        key = "<up>";
+        action = "<cmd>echo 'Use k to move!!'<CR>";
+      }
+      {
+        mode = "n";
+        key = "<down>";
+        action = "<cmd>echo 'Use j to move!!'<CR>";
+      }
     */
     # Keybinds to make split navigation easier.
     #  Use CTRL+<hjkl> to switch between windows
@@ -256,7 +258,7 @@ in {
     #  Try it with `yap` in normal mode
     #  See `:help vim.hl.on_yank()`
     {
-      event = ["TextYankPost"];
+      event = [ "TextYankPost" ];
       desc = "Highlight when yanking (copying) text";
       group = "kickstart-highlight-yank";
       callback.__raw = ''
