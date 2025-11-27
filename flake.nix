@@ -8,7 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs = {
@@ -44,7 +43,7 @@
         };
         nvim = nixvim'.makeNixvimWithModule nixvimModule;
       in {
-        packages.default = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+        packages.default = neovim;
         apps.default = {
           type = "app";
           program = "${nvim}/bin/nvim";
