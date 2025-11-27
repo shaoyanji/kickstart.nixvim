@@ -27,7 +27,7 @@
       enable = true;
       settings = {
         keymaps = {
-          accept_suggestion = "<C-Tab>";
+          accept_suggestion = "<Tab>";
           clear_suggestions = "<C-]>";
           accept_word = "<C-j>";
         };
