@@ -16,9 +16,6 @@
     flake-parts,
     ...
   } @ inputs: let
-    overlays = [
-      inputs.neovim-nightly-overlay.overlays.default
-    ];
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = [
@@ -43,7 +40,7 @@
         };
         nvim = nixvim'.makeNixvimWithModule nixvimModule;
       in {
-        packages.default = neovim;
+        packages.default = nvim;
         apps.default = {
           type = "app";
           program = "${nvim}/bin/nvim";
