@@ -8,6 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs = {
@@ -15,7 +16,11 @@
     nixvim,
     flake-parts,
     ...
-  } @ inputs:
+  } @ inputs: let
+    overlays = [
+      inputs.neovim-nightly-overlay.overlays.default
+    ];
+  in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = [
         "x86_64-linux"
@@ -71,6 +76,7 @@
         }: {
           imports = [inputs.nixvim.homeModules.nixvim];
           programs.nixvim = import ./nixvim.nix {inherit pkgs lib config;};
+          nixpkgs.overlays = overlays;
         };
 
         darwinModules.default = {
