@@ -44,7 +44,7 @@
         };
         nvim = nixvim'.makeNixvimWithModule nixvimModule;
       in {
-        packages.default = nvim;
+        packages.default = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
         apps.default = {
           type = "app";
           program = "${nvim}/bin/nvim";
@@ -76,7 +76,6 @@
         }: {
           imports = [inputs.nixvim.homeModules.nixvim];
           programs.nixvim = import ./nixvim.nix {inherit pkgs lib config;};
-          nixpkgs.overlays = overlays;
         };
 
         darwinModules.default = {
