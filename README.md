@@ -106,3 +106,6 @@ inputs.kickstart-nixvim.url = "path:/absolute/path/to/kickstart.nixvim";
 - Core kickstart-style editing defaults remain enabled.
 - This repo stays Nix-first. It does not pull in Mason, Lazy, or another external plugin manager.
 - If you already have another Neovim setup, use `NVIM_APPNAME` to keep configs separate.
+- Included UX additions stay thin and always-on: Trouble under `<leader>x`, Toggleterm under `<leader>t`, and persistence session restore under `<leader>S`.
+- `blink-cmp-git` is wired into Blink completion for `gitcommit` buffers without changing the default source list elsewhere.
+- Obsidian is kept out of the shared base because its workspace paths are user-specific. To re-enable it locally, import [`config/plugins/custom/notes.nix`](/workspaces/kickstart.nixvim/config/plugins/custom/notes.nix) from your Home Manager or host-local Nixvim module.

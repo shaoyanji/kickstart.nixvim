@@ -1,4 +1,6 @@
 { ... }: {
+  # User-local module for Obsidian. This is intentionally not imported by the
+  # shared base because the workspace paths are personal-machine specific.
   plugins.obsidian = {
     enable = true;
     settings = {

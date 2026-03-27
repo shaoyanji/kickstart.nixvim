@@ -13,6 +13,7 @@ in
     ./config/plugins/kickstart/lsp.nix
     ./config/plugins/kickstart/conform.nix
     ./config/plugins/kickstart/blink-cmp.nix
+    ./config/plugins/kickstart/blink-cmp-git.nix
     ./config/plugins/kickstart/todo-comments.nix
     ./config/plugins/kickstart/mini.nix
     ./config/plugins/kickstart/treesitter.nix
@@ -21,6 +22,9 @@ in
     ./config/plugins/kickstart/lint.nix
     ./config/plugins/kickstart/autopairs.nix
     ./config/plugins/kickstart/neo-tree.nix
+    ./config/plugins/kickstart/trouble.nix
+    ./config/plugins/kickstart/toggleterm.nix
+    ./config/plugins/kickstart/persistence.nix
     ./config/plugins/custom
   ];
 

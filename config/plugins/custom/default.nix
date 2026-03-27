@@ -5,7 +5,6 @@ pkgs,
 }: {
   imports = [
     ./ai.nix
-    ./notes.nix
     ./writing.nix
     ./language-extras.nix
   ];

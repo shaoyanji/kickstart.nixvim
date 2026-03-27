@@ -19,6 +19,14 @@
           group = "[T]oggle";
         }
         {
+          __unkeyed-1 = "<leader>x";
+          group = "Trouble";
+        }
+        {
+          __unkeyed-1 = "<leader>S";
+          group = "[S]ession";
+        }
+        {
           __unkeyed-1 = "<leader>h";
           group = "Git [H]unk";
           mode = [
