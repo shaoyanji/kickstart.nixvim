@@ -101,11 +101,48 @@ Example for a local checkout:
 inputs.kickstart-nixvim.url = "path:/absolute/path/to/kickstart.nixvim";
 ```
 
+## Shared Base
+
+- The shared base is the module exported by this flake and imported through [`nixvim.nix`](/workspaces/kickstart.nixvim/nixvim.nix).
+- It is expected to `nix build`, `nix flake check`, and start headlessly without local machine assumptions.
+- Local-only plugins are not imported there by default.
+
+## Local-Only Modules
+
+- Put machine-specific plugins in a host-local or Home Manager module and import them yourself.
+- Copy from [`examples/local/obsidian.nix`](/workspaces/kickstart.nixvim/examples/local/obsidian.nix) and [`examples/local/supermaven.nix`](/workspaces/kickstart.nixvim/examples/local/supermaven.nix) for minimal local-only patterns.
+- The shared base does not import `examples/` or user-specific plugins such as Obsidian or Supermaven.
+
+Example:
+
+```nix
+{
+  imports = [
+    inputs.kickstart-nixvim.homeManagerModules.default
+    ./local/obsidian.nix
+    ./local/supermaven.nix
+  ];
+
+  programs.nixvim.enable = true;
+}
+```
+
+## Validation
+
+```sh
+nix build .#
+nix flake check
+XDG_DATA_HOME=/tmp/kickstart-nixvim-data \
+XDG_STATE_HOME=/tmp/kickstart-nixvim-state \
+XDG_CACHE_HOME=/tmp/kickstart-nixvim-cache \
+./result/bin/nvim --headless '+quit'
+```
+
 ## Notes
 
 - Core kickstart-style editing defaults remain enabled.
 - This repo stays Nix-first. It does not pull in Mason, Lazy, or another external plugin manager.
 - If you already have another Neovim setup, use `NVIM_APPNAME` to keep configs separate.
 - Included UX additions stay thin and always-on: Trouble under `<leader>x`, Toggleterm under `<leader>t`, and persistence session restore under `<leader>S`.
+- Extra editor UX stays conservative: `yanky` adds `<leader>sy` plus yank-ring cycling on `[y`/`]y`, `flash` adds jump/search under `<leader>sj` and `<leader>sJ`, `treesj` adds syntax-aware split/join on `gS`/`gJ`, `mini-surround` keeps the upstream `sa`/`sd`/`sr` surround motions, `mini-ai` adds the upstream `a`/`i` textobjects, `illuminate` adds low-noise symbol highlighting, `diffview` adds `<leader>gd` and `<leader>gH` for repo/file diff views, `neogit` adds `<leader>gg` for git status, and `dressing` lightly polishes `vim.ui`.
 - `blink-cmp-git` is wired into Blink completion for `gitcommit` buffers without changing the default source list elsewhere.
-- Obsidian is kept out of the shared base because its workspace paths are user-specific. To re-enable it locally, import [`config/plugins/custom/notes.nix`](/workspaces/kickstart.nixvim/config/plugins/custom/notes.nix) from your Home Manager or host-local Nixvim module.

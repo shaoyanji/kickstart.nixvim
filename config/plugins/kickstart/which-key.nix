@@ -36,6 +36,10 @@
             "x"
           ];
         }
+        {
+          __unkeyed-1 = "<leader>g";
+          group = "[G]it";
+        }
       ];
     };
   };
