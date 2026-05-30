@@ -238,7 +238,7 @@
         vim.keymap.set('n', keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc })
       end
 
-      -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
+      -- This function resolves a difference between neovim 0.11+ and earlier versions (0.10)
       ---@param client vim.lsp.Client
       ---@param method vim.lsp.protocol.Method
       ---@param bufnr? integer some lsp support methods only in specific files
