@@ -38,6 +38,9 @@ in
   ];
 
   config = {
+    # Disable version check to prevent CI/CD blocking due to Nixpkgs version mismatch
+    version.enableNixpkgsReleaseCheck = false;
+
     # You can easily change to a different colorscheme.
     # Add your colorscheme here and enable it.
     # Don't forget to disable the colorschemes you arent using
