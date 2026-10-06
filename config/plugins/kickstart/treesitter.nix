@@ -1,16 +1,16 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   # Highlight, edit, and navigate code    # https://nix-community.github.io/nixvim/plugins/treesitter/index.html
-    plugins.treesitter = {
-      enable = true;
+  plugins.treesitter = {
+    enable = true;
 
-      # Nixvim-native indentation support (modern nvim-treesitter main branch;
-      # the legacy `settings.indent.*` upstream option is deprecated).
-      indent = {
-        enable = true;
-        disable = [
-          "ruby"
-        ];
-      };
+    # Nixvim-native indentation support (modern nvim-treesitter main branch;
+    # the legacy `settings.indent.*` upstream option is deprecated).
+    indent = {
+      enable = true;
+      disable = [
+        "ruby"
+      ];
+    };
 
     # Installing tree-sitter grammars from Nixpkgs (recommended)
     # https://nix-community.github.io/nixvim/plugins/treesitter/index.html#installing-tree-sitter-grammars-from-nixpkgs
