@@ -10,7 +10,6 @@ in
     ./config/plugins/kickstart/gitsigns.nix
     ./config/plugins/kickstart/which-key.nix
     ./config/plugins/kickstart/telescope.nix
-    ./config/plugins/kickstart/dressing.nix
     ./config/plugins/kickstart/yanky.nix
     ./config/plugins/kickstart/flash.nix
     ./config/plugins/kickstart/lsp.nix
@@ -24,8 +23,9 @@ in
     ./config/plugins/kickstart/treesitter.nix
     ./config/plugins/kickstart/treesj.nix
     ./config/plugins/kickstart/debug.nix
-    ./config/plugins/kickstart/indent-blankline.nix
-    ./config/plugins/kickstart/illuminate.nix
+    # snacks.nix consolidates indent-blankline + illuminate + dressing
+    # (snacks.indent / snacks.words / snacks.input + snacks.select).
+    ./config/plugins/kickstart/snacks.nix
     ./config/plugins/kickstart/lint.nix
     ./config/plugins/kickstart/diffview.nix
     ./config/plugins/kickstart/neogit.nix

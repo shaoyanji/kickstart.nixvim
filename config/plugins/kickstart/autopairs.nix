@@ -1,7 +1,8 @@
 {
   # Inserts matching pairs of parens, brackets, etc.
-  # https://nix-community.github.io/nixvim/plugins/nvim-autopairs/index.html
-  plugins.nvim-autopairs = {
+  # mini.pairs — zero-overhead autopairs, lighter than nvim-autopairs.
+  # https://nix-community.github.io/nixvim/plugins/mini-pairs/index.html
+  plugins.mini-pairs = {
     enable = true;
   };
 }
