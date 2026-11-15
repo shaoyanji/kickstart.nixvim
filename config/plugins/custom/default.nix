@@ -1,7 +1,9 @@
-# Machine-local, taste-local additions. This is the seam where an editing
-# surface driven by a local model will land; nothing else in the config should
-# need to move for it.
+# Machine-local, taste-local additions. The AI editing surface lands beside
+# cloak and typst rather than inside a plugin module: everything else here is
+# the shape of the editor, and these are this machine's extensions to it.
 {pkgs, ...}: {
+  imports = [./ai.nix];
+
   extraPackages = [pkgs.markdownlint-cli];
 
   plugins = {
