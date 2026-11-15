@@ -55,17 +55,34 @@ LSP keymaps are not defined here: Neovim 0.11 added `K`, `grn`, `gra`, `grr`,
 | `<Esc>` | clear search highlight |
 | `<A-a>` / `<A-l>` / `<A-]` / `<A-[>` | accept / accept line / next / previous ghost text |
 
-## Completion from a local model
+## Completion from a FIM endpoint
 
 `config/plugins/custom/ai.nix` puts [minuet](https://github.com/milanglacier/minuet-ai.nvim)
-ghost text in front of any OpenAI-compatible FIM server — no cloud account, no
-token, no login. It reads two variables, so the endpoint is a per-machine fact
-rather than a committed one:
+ghost text in front of any OpenAI-compatible FIM server. The default is local —
+no cloud account, no token, no login — and a hosted provider that speaks the same
+`/completions` shape (DeepSeek's beta FIM, for one) is three variables rather
+than a second backend. It reads them, so the endpoint is a per-machine fact rather
+than a committed one:
 
 ```lua
-vim.env.MINUET_ENDPOINT  -- default http://eisen.lan/v1/completions
-vim.env.MINUET_MODEL     -- default qwen3.6-35b-a3b
+vim.env.MINUET_ENDPOINT      -- default http://eisen.lan/v1/completions
+vim.env.MINUET_MODEL         -- default qwen3.6-35b-a3b
+vim.env.MINUET_API_KEY_NAME  -- default TERM; a local server ignores the header
 ```
+
+A hosted endpoint is the same key with a real variable behind it — the name is
+indirection, so no secret is ever in this file or in a store path:
+
+```sh
+export MINUET_ENDPOINT=https://api.deepseek.com/beta/completions
+export MINUET_MODEL=deepseek-flash
+export MINUET_API_KEY_NAME=DEEPSEEK_API_KEY
+export DEEPSEEK_API_KEY=...
+```
+
+That switch costs money per pause rather than CPU, and FIM caps out at 4K tokens,
+so `n_completions` is 1 here: the default of 3 sends three requests for one line
+of ghost text, and cycling candidates is what `<A-]>` is for.
 
 With no server answering, one request fails and the editor works as if the
 plugin were not installed. To route ghost text through blink.cmp's menu instead
