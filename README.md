@@ -1,148 +1,64 @@
-# kickstart.nixvim
+# kickstart.nixvim — minimal
 
-Personal fork of [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) translated into Nixvim.
+A small Neovim configuration built on [nixvim](https://github.com/nix-community/nixvim):
+one core module, six plugin modules, no plugin manager, no Mason, no `lazy.nvim`.
+Every plugin and grammar is a Nix derivation from the pinned nixpkgs, so a fresh
+machine reproduces the editor exactly.
 
-This repo aims to stay:
+## Use it
 
-- simple
-- legible
-- reproducible
-- easy to extend
-- conservative in behavior
-
-The shared base config is always-on and keeps the current plugin split without extra feature-selection layers.
-
-## Supported Use Cases
-
-| Use case | What you get |
-| --- | --- |
-| Standalone | A bundled `nvim` executable from this flake |
-| NixOS module | `programs.nixvim` configuration for NixOS |
-| Home Manager | `programs.nixvim` configuration for Home Manager |
-| nix-darwin | `programs.nixvim` configuration for nix-darwin |
-
-## External Dependencies
-
-- `git`
-- A clipboard provider appropriate for your platform
-- A [Nerd Font](https://www.nerdfonts.com/) if you want icon support
-- Language toolchains you actually use, for example `go`, `npm`, or `cargo`
-
-## Standalone
-
-Run directly from GitHub:
-
-```sh
-nix run github:shaoyanji/kickstart.nixvim -- <FILE>
-```
-
-Build locally:
-
-```sh
-nix build .#
-./result/bin/nvim <FILE>
-```
-
-For standalone tweaks, edit [`config/default.nix`](/workspaces/kickstart.nixvim/config/default.nix).
-
-## Module Usage
-
-Add the input to your flake:
-
-```nix
-inputs.kickstart-nixvim.url = "github:shaoyanji/kickstart.nixvim";
-```
-
-### NixOS
+As a Home Manager module (nixpkgs input follows are the consumer's business):
 
 ```nix
 {
-  imports = [
-    inputs.kickstart-nixvim.nixosModules.default
-  ];
-
-  programs.nixvim = {
-    enable = true;
-  };
-}
-```
-
-### Home Manager
-
-```nix
-{
-  imports = [
-    inputs.kickstart-nixvim.homeManagerModules.default
-  ];
-
-  programs.nixvim = {
-    enable = true;
-  };
-}
-```
-
-### nix-darwin
-
-```nix
-{
-  imports = [
-    inputs.kickstart-nixvim.darwinModules.default
-  ];
-
-  programs.nixvim = {
-    enable = true;
-  };
-}
-```
-
-Example for a local checkout:
-
-```nix
-inputs.kickstart-nixvim.url = "path:/absolute/path/to/kickstart.nixvim";
-```
-
-## Shared Base
-
-- The shared base is the module exported by this flake and imported through [`nixvim.nix`](/workspaces/kickstart.nixvim/nixvim.nix).
-- It is expected to `nix build`, `nix flake check`, and start headlessly without local machine assumptions.
-- Local-only plugins are not imported there by default.
-
-## Local-Only Modules
-
-- Put machine-specific plugins in a host-local or Home Manager module and import them yourself.
-- Copy from [`examples/local/obsidian.nix`](/workspaces/kickstart.nixvim/examples/local/obsidian.nix) and [`examples/local/supermaven.nix`](/workspaces/kickstart.nixvim/examples/local/supermaven.nix) for minimal local-only patterns.
-- The shared base does not import `examples/` or user-specific plugins such as Obsidian or Supermaven.
-
-Example:
-
-```nix
-{
-  imports = [
-    inputs.kickstart-nixvim.homeManagerModules.default
-    ./local/obsidian.nix
-    ./local/supermaven.nix
-  ];
-
+  inputs.kickstart-nixvim.url = "github:shaoyanji/kickstart.nixvim";
+  # ...
+  imports = [inputs.kickstart-nixvim.homeManagerModules.default];
   programs.nixvim.enable = true;
 }
 ```
 
-## Validation
+`nixosModules.default` and `darwinModules.default` are the same module for the
+other two hosts.
 
-```sh
-nix build .#
-nix flake check
-XDG_DATA_HOME=/tmp/kickstart-nixvim-data \
-XDG_STATE_HOME=/tmp/kickstart-nixvim-state \
-XDG_CACHE_HOME=/tmp/kickstart-nixvim-cache \
-./result/bin/nvim --headless '+quit'
+Standalone, with nothing else installed:
+
+```bash
+nix run github:shaoyanji/kickstart.nixvim
 ```
 
-## Notes
+## What is in it
 
-- Core kickstart-style editing defaults remain enabled.
-- This repo stays Nix-first. It does not pull in Mason, Lazy, or another external plugin manager.
-- If you already have another Neovim setup, use `NVIM_APPNAME` to keep configs separate.
-- Included UX additions stay thin and always-on: Trouble under `<leader>x`, Toggleterm under `<leader>t`, and persistence session restore under `<leader>S`.
-- Extra editor UX stays conservative: `yanky` adds `<leader>sy` plus yank-ring cycling on `[y`/`]y`, `flash` adds jump/search under `<leader>sj` and `<leader>sJ`, `treesj` adds syntax-aware split/join on `gS`/`gJ`, `mini-surround` keeps the upstream `sa`/`sd`/`sr` surround motions, `mini-ai` adds the upstream `a`/`i` textobjects, `illuminate` adds low-noise symbol highlighting, `diffview` adds `<leader>gd` and `<leader>gH` for repo/file diff views, `neogit` adds `<leader>gg` for git status, and `dressing` lightly polishes `vim.ui`.
-- `blink-cmp-git` is wired into Blink completion for `gitcommit` buffers without changing the default source list elsewhere.
+| Path | Contents |
+| :--- | :--- |
+| `nixvim.nix` | the import list, options, keymaps, yank highlight, diagnostics |
+| `config/plugins/lsp.nix` | `nixd` (alejandra formatting) and `lua_ls`, plus lazydev |
+| `config/plugins/cmp.nix` | blink.cmp on the Lua matcher, sources `lsp` `path` `snippets` |
+| `config/plugins/treesitter.nix` | sixteen nixpkgs grammars, native indent |
+| `config/plugins/telescope.nix` | picker with `fzf-native` and `ui-select` |
+| `config/plugins/conform.nix` | format on save, stylua for Lua, LSP fallback |
+| `config/plugins/ui.nix` | which-key, mini.statusline/pairs/surround, gitsigns |
+| `config/plugins/custom/` | machine-local taste: cloak, typst |
+
+LSP keymaps are not defined here: Neovim 0.11 added `K`, `grn`, `gra`, `grr`,
+`gri`, `gO`, and 0.12 keeps them. What is left is this config's own choices:
+
+| Key | Action |
+| :--- | :--- |
+| `<leader>sf` / `sg` / `sd` / `sk` / `sh` | files, grep, diagnostics, keymaps, help |
+| `<leader><leader>` | open buffers |
+| `<leader>f` | format buffer |
+| `<leader>q` | diagnostics to quickfix |
+| `<leader>bd` | delete buffer |
+| `]c` / `[c` | next / previous git hunk |
+| `<C-hjkl>` | window focus |
+| `<Esc>` | clear search highlight |
+
+## Check
+
+```bash
+nix flake check     # builds the editor, starts it headless, runs it as a test
+nix fmt             # alejandra
+```
+
+CI runs `nix flake check` on push to `main` (`.github/workflows/ci.yml`).
